@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>VIZORA AI</title>
+<style>
+:root{--bg:#090909;--bg2:#151515;--a:#8B5CF6;--a2:#A78BFA;--t:#fff;--t2:#b5b5c0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 400px at 50% -100px,#8B5CF633,transparent),var(--bg);color:var(--t);font:15px system-ui,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:12px 18px;position:sticky;top:0;background:#090909dd;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff14;z-index:5;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.5px}nav{display:flex;gap:4px;flex:1;overflow-x:auto}
+nav button,.btn{background:none;border:0;color:var(--t2);padding:8px 12px;border-radius:10px;cursor:pointer;font:inherit}
+nav button.on{color:#fff;background:#ffffff14}.btn{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;font-weight:600}.btn.g{background:#ffffff14}
+.credits{background:#8B5CF622;border:1px solid #8B5CF655;padding:6px 12px;border-radius:20px;font-weight:600;font-size:13px;white-space:nowrap}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 60px}.card{background:#ffffff0a;border:1px solid #ffffff14;border-radius:18px;padding:18px;backdrop-filter:blur(10px)}
+h1{font-size:clamp(28px,6vw,48px);margin:10px 0}h1 span{background:linear-gradient(135deg,var(--a),var(--a2));-webkit-background-clip:text;color:transparent}
+input,textarea,select{width:100%;background:var(--bg2);border:1px solid #ffffff1f;color:#fff;border-radius:12px;padding:12px;font:inherit;margin:6px 0}
+textarea{min-height:90px;resize:vertical}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}.grid img{width:100%;border-radius:12px;display:block}
+.pack{text-align:center}.pack b{font-size:26px;display:block;color:var(--a2)}.sub{color:var(--t2);font-size:13px}.err{color:#ff7b8a;min-height:20px}
+.hide{display:none}.chips span{display:inline-block;background:#ffffff0f;border-radius:20px;padding:6px 12px;margin:4px 4px 0 0;cursor:pointer;font-size:13px}
+.modal{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;z-index:9;padding:16px}
+.spin{width:36px;height:36px;border:3px solid #ffffff22;border-top-color:var(--a2);border-radius:50%;animation:s 1s linear infinite;margin:20px auto}@keyframes s{to{transform:rotate(360deg)}}
+td,th{padding:8px;text-align:left;border-bottom:1px solid #ffffff14;font-size:13px}table{width:100%;border-collapse:collapse}
+</style></head><body>
+<header><div class="logo"><svg width="28" height="28" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs><path d="M3 5h7l6 14 6-14h7L16 29z" fill="url(#g)"/><path d="M12 5h3l1 3 1-3h3l-4 9z" fill="#090909"/></svg>VIZORA AI</div>
+<nav id="nav" class="hide"><button data-v="create" class="on">Create</button><button data-v="mine">My Creations</button><button data-v="buy">Pricing</button><button data-v="hist">History</button></nav>
+<span id="cr" class="credits hide"></span><button id="out" class="btn g hide">Logout</button></header>
+<main>
+<section id="v-auth"><h1>Your Imagination.<br><span>Infinite Creation.</span></h1>
+<p class="sub">Transform your ideas into stunning AI-generated images. Describe your imagination and let VIZORA AI bring it to life.</p>
+<div class="card" style="max-width:420px"><div class="row"><button class="btn" id="tl">Login</button><button class="btn g" id="tr">Register</button></div>
+<form id="af"><input id="un" placeholder="Username" class="hide" autocomplete="username"><input id="em" type="email" placeholder="Email" autocomplete="email">
+<input id="pw" type="password" placeholder="Password" autocomplete="current-password"><input id="pc" type="password" placeholder="Confirm password" class="hide" autocomplete="new-password">
+<div class="err" id="ae"></div><button class="btn" style="width:100%" id="as">Login</button></form></div></section>
+
+<section id="v-create" class="hide"><div class="card"><div class="credits" style="display:inline-block" id="cr2"></div><div class="sub" style="margin:6px 0">1 CREDIT = 1 AI GENERATED IMAGE</div>
+<textarea id="pr" placeholder="Describe your imagination…" maxlength="1000"></textarea>
+<div class="chips" id="ex"><span>A neon city in the rain, cinematic</span><span>Astronaut riding a horse on Mars</span><span>Cute robot cafe, soft light</span></div>
+<input id="ng" placeholder="Negative prompt (optional)"><div class="row"><select id="st"><option value="">No style</option><option>Anime</option><option>Realistic</option><option>3D render</option><option>Cyberpunk</option><option>Watercolor</option></select>
+<select id="as2"><option>1:1</option><option>16:9</option><option>9:16</option><option>4:3</option></select></div>
+<p class="sub">Generating one image will use 1 credit. Failed generations are never charged.</p><div class="err" id="ge"></div>
+<button class="btn" id="go" style="width:100%">Generate Image</button></div><div id="res" style="margin-top:16px"></div></section>
+
+<section id="v-mine" class="hide"><div class="grid" id="gal"></div></section>
+<section id="v-buy" class="hide"><h2>Buy Credits</h2><p class="sub">₹1 = 1 Credit. Minimum ₹20, maximum ₹100.</p><div class="grid" id="packs"></div><div class="err" id="be"></div></section>
+<section id="v-hist" class="hide"><div class="card"><h3>Credit transactions</h3><table id="t1"></table></div><div class="card" style="margin-top:12px"><h3>Payments</h3><table id="t2"></table></div></section>
+</main>
+<div class="modal hide" id="m"><div class="card" style="max-width:360px;text-align:center"><h3>Out of credits</h3><p class="sub">You need 1 credit to generate an image.</p><button class="btn" id="mb">Buy Credits</button> <button class="btn g" id="mc">Close</button></div></div>
+<script>
+const $=i=>document.getElementById(i);let reg=false,me=null;
+const api=async(u,o={})=>{const r=await fetch(u,{credentials:'same-origin',headers:{'Content-Type':'application/json'},...o,body:o.body&&JSON.stringify(o.body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw Object.assign(new Error(j.error||'Error'),{status:r.status});return j};
+const show=v=>{['auth','create','mine','buy','hist'].forEach(x=>$('v-'+x).classList.toggle('hide',x!==v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));({mine:loadMine,hist:loadHist,buy:loadBuy})[v]?.()};
+function setMe(u){me=u;const on=!!u;['nav','cr','out'].forEach(i=>$(i).classList.toggle('hide',!on));if(on){const t='YOU HAVE '+u.credits+' CREDITS';$('cr').textContent=t;$('cr2').textContent=t}}
+async function init(){try{setMe(await api('/api/me'));show('create')}catch{setMe(null);show('auth')}}
+$('tl').onclick=$('tr').onclick=e=>{reg=e.target.id==='tr';['un','pc'].forEach(i=>$(i).classList.toggle('hide',!reg));$('as').textContent=reg?'Create account':'Login'};
+$('af').onsubmit=async e=>{e.preventDefault();$('ae').textContent='';try{await api(reg?'/api/register':'/api/login',{method:'POST',body:{username:$('un').value,email:$('em').value,password:$('pw').value,confirm:$('pc').value}});init()}catch(x){$('ae').textContent=x.message}};
+$('out').onclick=async()=>{await api('/api/logout',{method:'POST'});setMe(null);show('auth')};
+$('nav').onclick=e=>e.target.dataset.v&&show(e.target.dataset.v);
+$('ex').onclick=e=>{if(e.target.tagName==='SPAN')$('pr').value=e.target.textContent};
+$('mb').onclick=()=>{$('m').classList.add('hide');show('buy')};$('mc').onclick=()=>$('m').classList.add('hide');
+$('go').onclick=async()=>{$('ge').textContent='';const p=$('pr').value.trim();if(p.length<3)return $('ge').textContent='Write a prompt first';
+ if(me.credits<1)return $('m').classList.remove('hide');if(!confirm('Generating one image will use 1 credit. Continue?'))return;
+ $('go').disabled=true;$('res').innerHTML='<div class="spin"></div>';
+ try{const j=await api('/api/generate',{method:'POST',body:{prompt:p,negative:$('ng').value,style:$('st').value,aspect:$('as2').value}});setMe({...me,credits:j.credits});
+  $('res').innerHTML=`<div class="card"><img style="width:100%;border-radius:12px" src="/api/images/${j.id}/file"><div class="row" style="margin-top:10px"><a class="btn" style="text-align:center;text-decoration:none" href="/api/images/${j.id}/file?dl=1">Download</a><button class="btn g" onclick="show('mine')">My Creations</button><button class="btn g" onclick="$('go').click()">Regenerate</button></div></div>`}
+ catch(x){$('res').innerHTML='';if(x.message==='INSUFFICIENT_CREDITS')$('m').classList.remove('hide');else $('ge').textContent=x.message}$('go').disabled=false};
+async function loadMine(){const L=await api('/api/images');const g=$('gal');g.innerHTML=L.length?'':'<p class="sub">No creations yet.</p>';
+ L.forEach(i=>{const d=document.createElement('div');d.className='card';d.style.padding='8px';d.innerHTML=`<img src="/api/images/${i.id}/file"><p class="sub p"></p><div class="row"><a class="btn g" style="text-align:center;text-decoration:none" href="/api/images/${i.id}/file?dl=1">⬇</a><button class="btn g f">${i.is_favorite?'★':'☆'}</button><button class="btn g x">🗑</button></div>`;
+  d.querySelector('.p').textContent=i.prompt.slice(0,80)+' · '+new Date(i.created_at).toLocaleDateString();
+  d.querySelector('.f').onclick=async()=>{await api('/api/images/'+i.id+'/favorite',{method:'POST'});loadMine()};
+  d.querySelector('.x').onclick=async()=>{if(confirm('Delete this image?')){await api('/api/images/'+i.id,{method:'DELETE'});loadMine()}};g.appendChild(d)})}
+function loadBuy(){$('packs').innerHTML='';[20,40,60,80,100].forEach(n=>{const d=document.createElement('div');d.className='card pack';d.innerHTML=`<b>${n}</b>Credits<p class="sub">₹${n}</p><button class="btn">Buy</button>`;
+ d.querySelector('button').onclick=async()=>{$('be').textContent='';try{const j=await api('/api/orders',{method:'POST',body:{amount:n}});location.href=j.checkout_url}catch(x){$('be').textContent=x.message}};$('packs').appendChild(d)})}
+async function loadHist(){setMe(await api('/api/me'));const j=await api('/api/transactions');const row=(a)=>'<tr>'+a.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+ $('t1').innerHTML=row(['Date','Type','Credits']).replace(/td/g,'th')+j.credits.map(t=>row([new Date(t.created_at).toLocaleString(),t.type,(t.delta>0?'+':'')+t.delta])).join('');
+ $('t2').innerHTML=row(['Date','Amount','Credits','Status']).replace(/td/g,'th')+j.payments.map(p=>row([new Date(p.created_at).toLocaleString(),'₹'+p.amount_inr,p.credits,p.status])).join('')}
+async function checkReturn(){const id=new URLSearchParams(location.search).get('order');if(!id||!me)return;history.replaceState({},'','/');
+ show('buy');$('be').style.color='#a78bfa';$('be').textContent='Verifying your payment…';
+ for(let i=0;i<75;i++){try{const j=await api('/api/orders/'+id+'/status');
+  if(j.status==='paid'){setMe(await api('/api/me'));$('be').textContent='Payment verified. Credits added!';return}
+  if(['expired','mismatch','failed'].includes(j.status)){$('be').style.color='';$('be').textContent='Payment not completed ('+j.status+'). If money was debited, it will be credited automatically once verified.';return}}catch{}
+  await new Promise(r=>setTimeout(r,4000))}$('be').textContent='Still waiting. Credits will appear automatically after payment is confirmed.'}
+init().then(checkReturn);
+</script></body></html>
